@@ -19,6 +19,13 @@ logging:
         br.com.exemplo.microservice: DEBUG
         io.github.jhipster: DEBUG
 
+eureka:
+    instance:
+        prefer-ip-address: true
+    client:
+        service-url:
+            defaultZone: http://admin:${jhipster.registry.password}@localhost:8761/eureka/
+
 spring:
     profiles:
         active: dev

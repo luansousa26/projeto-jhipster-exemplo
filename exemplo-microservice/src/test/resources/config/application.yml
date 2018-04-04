@@ -13,6 +13,12 @@
 # http://docs.spring.io/spring-boot/docs/current/reference/html/common-application-properties.html
 # ===================================================================
 
+eureka:
+    client:
+        enabled: true
+    instance:
+        appname: microservice
+        instanceId: microservice:${spring.application.instance-id:${random.value}}
 
 spring:
     application:
@@ -85,7 +91,7 @@ jhipster:
     security:
         authentication:
             jwt:
-                secret: 66218f80e9a98dc4fe7f971ee744b4f9b5254f96
+                secret: 66a3f09ce0ddc68259eda24978cd97f68c298da3
                 # Token is valid 24 hours
                 token-validity-in-seconds: 86400
         client-authorization:

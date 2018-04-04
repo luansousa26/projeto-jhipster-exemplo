@@ -13,6 +13,7 @@ import org.springframework.boot.actuate.autoconfigure.*;
 import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.liquibase.LiquibaseProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
+import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.FilterType;
 import org.springframework.core.env.Environment;
@@ -28,6 +29,7 @@ import java.util.Collection;
 )
 @EnableAutoConfiguration(exclude = {MetricFilterAutoConfiguration.class, MetricRepositoryAutoConfiguration.class})
 @EnableConfigurationProperties({LiquibaseProperties.class, ApplicationProperties.class})
+@EnableDiscoveryClient
 public class MicroserviceApp {
 
     private static final Logger log = LoggerFactory.getLogger(MicroserviceApp.class);
@@ -84,5 +86,10 @@ public class MicroserviceApp {
             InetAddress.getLocalHost().getHostAddress(),
             env.getProperty("server.port"),
             env.getActiveProfiles());
+
+        String configServerStatus = env.getProperty("configserver.status");
+        log.info("\n----------------------------------------------------------\n\t" +
+                "Config Server: \t{}\n----------------------------------------------------------",
+            configServerStatus == null ? "Not found or not setup for this application" : configServerStatus);
     }
 }
